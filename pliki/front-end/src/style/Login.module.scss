@@ -1,0 +1,22 @@
+.error {
+    color: red;
+    font-family: "Permanent Marker", cursive;
+    margin-bottom: 5px;
+}
+.formContend {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    input {
+        margin-bottom: 5px;
+        padding: 15px;
+        font-size: 15px;
+    }
+    .iconLogin {
+        font-size: 50px;
+        margin-bottom: 30px;
+        color: #008000;
+    }
+}

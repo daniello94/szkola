@@ -1,0 +1,41 @@
+%SharedTraits {
+    background-color: #008000;
+    opacity: 0.9;
+    color: white;
+}
+.tableName {
+    margin-bottom: 10px;
+    width: 80%;
+    thead,
+    th {
+        @extend %SharedTraits;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        padding: 10px;
+    }
+    tr,
+    td,
+    th {
+        border: 1px solid #008000;
+        padding: 5px;
+    }
+    .box {
+        background-color: #e0ece0;
+        opacity: 0.9;
+    }
+    .tableGrades {
+        width: 100%;
+        .titleSubject {
+            font-family: Georgia, "Times New Roman", Times, serif;
+            position: relative;
+        }
+        .titleBoxSubject {
+            @extend %SharedTraits;
+            text-align: center;
+            font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+        }
+        .Average {
+            position: absolute;
+            right: 6px;
+        }
+    }
+}

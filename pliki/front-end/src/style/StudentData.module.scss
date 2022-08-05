@@ -1,0 +1,40 @@
+.tableStudent {
+    width: 80%;
+    margin-bottom: 10px;
+    position: relative;
+    thead,
+    .titleBox {
+        background-color: #008000;
+        opacity: 0.8;
+        color: white;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    tr,
+    td,
+    th {
+        border: 1px solid #008000;
+        padding: 5px;
+    }
+    td {
+        font-family: Georgia, "Times New Roman", Times, serif;
+        background-color: #e0ece0;
+        border: 1px solid #008000;
+        opacity: 0.8;
+    }
+    .Average {
+        position: absolute;
+        right: 6px;
+    }
+    input {
+        padding: 5px;
+        margin-right: 5px;
+        margin-bottom: 3px;
+        &:focus {
+            background-color: #e0ece0;
+        }
+    }
+}
+.boxOne {
+    width: 100%;
+    color: #008000;
+}
