@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import moment from "moment";
+import Container from "../components/Container";
+import style from "../style/Blog.module.scss";
+import Button from "../components/Button";
+
 const validate = form => {
-    if (!form.content) {
-        return "Musisz wpisać tekst"
-    }
     if (!form.title) {
-        return "Podaj Temat"
-    }else if(form.title.length > 20){
-        return "Tytuł może zawierać max 20 znaków"
+        return " musisz podać temat posta"
+    } else if (form.title.length > 20) {
+        return "tytuł może zawierać max 20 znaków"
     }
+    if (!form.content) {
+        return "musisz wpisać tekst posta"
+    }
+
 };
 const validateResponse = form => {
     if (!form.content) {
-        return "Musisz wpisać tekst"
+        return "musisz wpisać tekst"
     }
 }
 
@@ -22,7 +27,7 @@ export default function Chat(props) {
     const [more, setMore] = useState(false);
     const [error, setError] = useState("");
     const [onePost, setOnePost] = useState({
-        createdAt:"",
+        createdAt: "",
         name: props.dataUser.user.name,
         classNr: props.dataUser.user.classNr,
         content: "",
@@ -30,7 +35,7 @@ export default function Chat(props) {
         responses: []
     });
     const [form, setForm] = useState({
-        createdAt:"",
+        createdAt: "",
         name: props.dataUser.user.name,
         classNr: props.dataUser.user.classNr,
         content: "",
@@ -38,12 +43,12 @@ export default function Chat(props) {
         responses: []
     });
     const [response, setResponse] = useState({
-        createdAt:"",
+        createdAt: "",
         name: props.dataUser.user.name,
         classNr: props.dataUser.user.classNr,
         content: "",
     });
-    
+
     function blogResponse(_id) {
         setResponse(_id)
     };
@@ -72,16 +77,15 @@ export default function Chat(props) {
             const { name, classNr, content } = form
             axios.put('http://127.0.0.1:8080/api/chat/addResponse/' + _id, {
                 name, classNr, content
-            })
-                .then(() => {
-                    setForm({
-                        title: "",
-                        content: "",
-                        name: props.dataUser.user.name,
-                        classNr: props.dataUser.user.classNr,
-                    })
-                    oneMessages(_id)
+            }).then(() => {
+                setForm({
+                    title: "",
+                    content: "",
+                    name: props.dataUser.user.name,
+                    classNr: props.dataUser.user.classNr,
                 })
+                oneMessages(_id)
+            })
         }
     };
 
@@ -95,18 +99,17 @@ export default function Chat(props) {
             const { name, classNr, content } = form
             axios.post('http://127.0.0.1:8080/api/chat/add', {
                 name, classNr, content, title
-            })
-                .then((res) => {
-                    setForm({
-                        title: "",
-                        content: "",
-                        name: props.dataUser.user.name,
-                        classNr: props.dataUser.user.classNr,
-                    })
-                    console.log(res.data);
-                    setError(<span className='.error span'>Dodałeś wpis</span>)
-                    listChat()
+            }).then((res) => {
+                setForm({
+                    title: "",
+                    content: "",
+                    name: props.dataUser.user.name,
+                    classNr: props.dataUser.user.classNr,
                 })
+                console.log(res.data);
+                setError(<span className={style.AddPost}>dodałeś wpis</span>)
+                listChat()
+            })
         }
     };
 
@@ -125,72 +128,99 @@ export default function Chat(props) {
     const { name, title, content } = form
     if (response === status._id) {
         return (
-            <div className='container'>
-                <div className='style-messages'>
-                    <span className='message-name' key={onePost._id}>{onePost.title}</span><br />
-                    <span className='author-title'>{onePost.name} {onePost.classNr}</span>
-                    <span className='datum-blog'>{moment(onePost.createdAt).format('DD/MM/YYYY - hh:mm:ss')}</span>
-                    <hr />
-                    <span className='message-content'>{onePost.content}</span>
+            <Container>
+                <div className={style.MessageBlog}>
+                    <span className={style.MessageBlogTitle} key={onePost._id}>
+                        {onePost.title}
+                    </span><br />
+                    <span className={style.AuthorPost}>
+                        To jest post urzytkownika: {onePost.name} {onePost.classNr}
+                    </span>
+                    <span className={style.DatumBlog}>
+                        {moment(onePost.createdAt).format('DD/MM/YYYY - hh:mm:ss')}
+                    </span>
+                    <span className={style.BlogContent}>
+                        {onePost.content}
+                    </span>
                 </div>
-                <div>
-                    {onePost.responses.map((responses) => {
-                        return (
-                            <div className='style-messages'>
-                                <span key={responses._id} className='author-title'>{responses.name} {responses.classNr}</span> <br />
-                                <span className='message-content'>{responses.content}</span>
-                                <span className='datum-blog'>{moment(responses.createdAt).format('DD/MM/YYYY - hh:mm:ss')}</span>
-                            </div>
-                        )
-                    })}
-                </div>
-
-                <div>
-                    <form>
-                        <label> {form.name} {form.classNr}</label>
-                        <textarea value={content} onChange={stateChat} className='input-chat' type="text" name='content' placeholder='Napisz swoją odpowiedź'></textarea>
-                        <button className='btn' onClick={(e) => {
-                            e.preventDefault();
-                            sendResponse(onePost._id)
-                        }}>Odpowiedz</button>
-                        <button className='btn' onClick={() => setForm("")}>wstecz</button>
-                    </form>
-                </div>
-            </div>
-        )
-    }
-    return (
-        <div className='container'>
-            <div>
-                {status.map(message => {
+                {onePost.responses.map((responses) => {
                     return (
-                        <div className='style-messages'>
-                            <span className='message-name' key={message._id}>{message.title}</span><br />
-                            <span className='author-title'>{message.name} {message.classNr}</span>
-                            <hr />
-                            <span className='message-content'>{message.content}</span>
-                            <span className='datum-blog'>{moment(message.createdAt).format('DD/MM/YYYY - hh:mm:ss')}</span>
-                            <button className='btn pos' onClick={() => oneMessages(message._id)}>Zobacz odpowiedzi</button>
+                        <div className={style.MessageBlogResponse}>
+                            <span key={responses._id} className={style.MessageBlogUserResponse}>
+                                {responses.name} {responses.classNr} napisał/a:
+                            </span> <br />
+                            <span className={style.BlogContent}>
+                                {responses.content}
+                            </span>
+                            <span className={style.DatumBlog}>
+                                {moment(responses.createdAt).format('DD/MM/YYYY - hh:mm:ss')}
+                            </span>
                         </div>
                     )
                 })}
-            </div>
 
-            <div className='style-send-messages'>
-                <button className="btn-chat" onClick={() => setMore(!more)}>{more ? "Ukryj pole tekstowe" : "Utwórz nowy temat bloga"}</button>
+                <form className={style.SendResponseBlog}>
+                    <label>
+                        Twoja odpowiedź {form.name} to:
+                    </label>
+                    <textarea value={content} onChange={stateChat} type="text" name='content' placeholder='Tutaj wpisz swoją odpowiedź' />
+                    <Button isAlternative={true} onClick={(e) => {
+                        e.preventDefault();
+                        sendResponse(onePost._id)
+                    }}>Wyślij odpowiedź
+                    </Button>
+                    <Button isAlternative={true} onClick={() => setForm("")}>
+                        Wróć do postów
+                    </Button>
+                </form>
+            </Container>
+        )
+    }
+    return (
+        <Container>
 
-                {more &&
-                    <form >
-                        <p className='error'>{error}</p>
-                        <label value={name} onChange={stateChat}>{form.name} {form.classNr}
-                            <input className='input-blog' value={title} onChange={stateChat} type="text" name='title' placeholder='wpisz temat' ></input>
-                            <textarea className='input-chat' value={content} onChange={stateChat} type="text" name='content' placeholder='Napisz swoje pytanie'></textarea>
-                        </label>
-                        <button className="btn-chat" type='submit' onClick={addMessages}>Dodaj wpis</button>
-                    </form>
-                }
-            </div>
+            {status.map(message => {
+                return (
+                    <div className={style.MessageBlog}>
+                        <span className={style.MessageBlogTitle} key={message._id}>
+                            {message.title}
+                        </span><br />
+                        <span className={style.AuthorPost}>
+                            Post urzytkownika: {message.name} {message.classNr}
+                        </span>
+                        <span className={style.BlogContent}>
+                            {message.content}
+                        </span>
+                        <span className={style.DatumBlog}>
+                            {moment(message.createdAt).format('DD/MM/YYYY - hh:mm:ss')}
+                        </span>
+                        <Button isAlternative={true} onClick={() => oneMessages(message._id)}>
+                            Zobacz odpowiedzi
+                        </Button>
+                    </div>
+                )
+            })}
 
-        </div>
+
+            <Button onClick={() => setMore(!more)}>
+                {more ? "Ukryj pole tekstowe" : "Utwórz nowy temat bloga"}
+            </Button>
+            {more &&
+                <form className={style.FromAddContent}>
+                    <label value={name} onChange={stateChat}>
+                        <span className={style.TextLabel}>
+                            {form.name} {form.classNr} <span className={style.Error}>
+                                {error}
+                            </span>
+                        </span>
+                        <input className='input-blog' value={title} onChange={stateChat} type="text" name='title' placeholder='Tutaj wpisz temat' />
+                        <textarea className='input-chat' value={content} onChange={stateChat} type="text" name='content' placeholder='Tutaj napisz trść posta' />
+                    </label>
+                    <Button isAlternative={true} type='submit' onClick={addMessages}>
+                        Dodaj wpis
+                    </Button>
+                </form>
+            }
+        </Container>
     )
 };

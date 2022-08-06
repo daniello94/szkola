@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
+import Container from "../components/Container";
+import style from "../style/UserData.module.scss"
 
 export default function UserData(_id) {
 
@@ -36,59 +38,56 @@ export default function UserData(_id) {
 
 
     return (
-        <div className="container">
-            <div className="table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th colSpan="2">{status.name} {status.lastName}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td className="box">Pesel</td>
-                            <td className="box">{status.numberId}</td>
-                        </tr>
-                        <tr>
-                            <td className="box">Imie Matki</td>
-                            <td className="box">{status.nameMather}</td>
-                        </tr>
-                        <tr>
-                            <td className="box">Imie Ojca</td>
-                            <td className="box">{status.nameFather}</td>
-                        </tr>
-                        <tr>
-                            <td className="box">Email</td>
-                            <td className="box">{status.email}</td>
-                        </tr>
-                        <tr>
-                            <td className="box">Klasa</td>
-                            <td className="box">{status.classNr}</td>
-                        </tr>
-                        <tr>
-                            <td className="box">Typ konta</td>
-                            <td className="box">{status.role}</td>
-                        </tr>
-                        <tr>
-                            <th className="title-box" colSpan="2">Adres</th>
-                        </tr>
+        <Container>
+            <table className={style.TableUserData}>
+                <thead>
+                    <tr>
+                        <th colSpan="2">{status.name} {status.lastName}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Pesel</td>
+                        <td>{status.numberId}</td>
+                    </tr>
+                    <tr>
+                        <td>Imie Matki</td>
+                        <td>{status.nameMather}</td>
+                    </tr>
+                    <tr>
+                        <td>Imie Ojca</td>
+                        <td>{status.nameFather}</td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>{status.email}</td>
+                    </tr>
+                    <tr>
+                        <td>Klasa</td>
+                        <td>{status.classNr}</td>
+                    </tr>
+                    <tr>
+                        <td>Typ konta</td>
+                        <td>{status.role}</td>
+                    </tr>
+                    <tr>
+                        <th colSpan="2">Adres</th>
+                    </tr>
 
-                        <tr>
-                            <td className="box">Miasto</td>
-                            <td className="box">{status.address.city}</td>
-                        </tr>
-                        <tr>
-                            <td className="box">Ulica i Numer</td>
-                            <td className="box">{status.address.street} {status.address.nr}</td>
-                        </tr>
-                        <tr>
-                            <td className="box">Kod Pocztowy</td>
-                            <td className="box">{status.address.zipCode}</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-        </div>
+                    <tr>
+                        <td>Miasto</td>
+                        <td>{status.address.city}</td>
+                    </tr>
+                    <tr>
+                        <td>Ulica i Numer</td>
+                        <td>{status.address.street} {status.address.nr}</td>
+                    </tr>
+                    <tr>
+                        <td>Kod Pocztowy</td>
+                        <td>{status.address.zipCode}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </Container>
     )
 };

@@ -67,6 +67,7 @@ export default function StudentData() {
     useEffect(() => {
         oneStudent(id)
     }, []);
+
     if (update === status.id) {
         return (
             <Container>
@@ -127,7 +128,7 @@ export default function StudentData() {
                         </tr>
                     </tbody>
                 </table>
-                <div className="student-add-content">
+                <div>
                     <Button onClick={() => updateUser(status._id)}>Zapisz</Button>
                     <Button onClick={() => setUpdate("")}>Anuluj</Button>
                 </div>
@@ -216,6 +217,7 @@ export default function StudentData() {
                     </tr>
                 </tbody>
             </table>
+
             <Button className="btn btn-2" onClick={() => {
                 setName(status.name)
                 setLastName(status.lastName)
@@ -230,6 +232,7 @@ export default function StudentData() {
                 setZipCode(status.address.zipCode)
                 editClick(status.id)
             }}>Edytuj dane</Button>
+
             <table className={style.tableStudent}>
                 <thead>
                     <tr>
@@ -253,9 +256,9 @@ export default function StudentData() {
                                     </th>
                                 </tr>
                                 <tr>
-                                    <td>Nazwa Działu</td>
-                                    <td>Rodzaj</td>
-                                    <td>Stopień</td>
+                                    <td className={style.NameType}>Nazwa Działu</td>
+                                    <td className={style.NameType}>Rodzaj</td>
+                                    <td className={style.NameType}>Stopień</td>
                                 </tr>
                                 {result.grades.map((grade) => {
                                     return (

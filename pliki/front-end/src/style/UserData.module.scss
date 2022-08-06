@@ -1,0 +1,22 @@
+.TableUserData {
+    width: 80%;
+    thead,
+    th {
+        background-color: #008000;
+        opacity: 0.9;
+        color: white;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        padding: 10px;
+    }
+    tr,
+    td,
+    th {
+        border: 1px solid #008000;
+        padding: 5px;
+    }
+    td {
+        background-color: #e0ece0;
+        opacity: 0.9;
+        font-family: Georgia, "Times New Roman", Times, serif;
+    }
+};
