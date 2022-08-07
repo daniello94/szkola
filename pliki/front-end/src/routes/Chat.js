@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 import config from "./config";
 import moment from "moment";
+import Container from "../components/Container";
+import style from "../style/Chat.module.scss";
+
 export default function Chat(props) {
     const [messages, setMessages] = useState([]);
     const [formData, setFormData] = useState("");
@@ -33,29 +36,33 @@ export default function Chat(props) {
     };
 
     return (
-        <div>
-            <div className="scroll-chat">
+        <Container>
+            <div className={style.ChatScroll}>
                 {messages.map((message) => {
                     return (
-                        <div className="chat-message" key={message._id}>
-                            <span className="chat-title">{message.name} {message.classNr}</span><br />
-                            <span className="chat-date">{moment(message.createdAt).format('DD/MM/YYYY - hh:mm:ss')}</span>
-                            <span className="chat-content">{message.content}</span>
+                        <div className={style.ChatMessage} key={message._id}>
+                            <span className={style.ChatTitle}>
+                                {message.name} {message.classNr}
+                            </span>
+                            <span className={style.ChatContent}>
+                                {message.content}
+                            </span>
+                            <span className={style.ChatDatum}>
+                                {moment(message.createdAt).format('DD/MM/YYYY - hh:mm:ss')}
+                            </span>
                         </div>
                     )
                 })}
             </div>
-            <div className="form-content">
-                        <span className="web-user">{props.dataUser.user.name} {props.dataUser.user.classNr}</span><br />
-                        <form className="form-chat" onSubmit={handleSubmit}>
-                            <textarea className="chat-textarea" placeholder="Napisz swoją wiadomość"
-                                onChange={(e) => setFormData(e.target.value)}
-                                value={formData}>
-                            </textarea>
-                            <button className="btn chat click-position">wyślij</button>
-                        </form>
+            <div className={style.ContentSendMessage}>
+                <span className={style.WebUser}>{props.dataUser.user.name} {props.dataUser.user.classNr}</span><br />
+                <form className={style.FromChat} onSubmit={handleSubmit}>
+                    <textarea placeholder="Napisz swoją wiadomość"
+                        onChange={(e) => setFormData(e.target.value)}
+                        value={formData} />
+                    <button className={style.ButtonSend}>wyślij</button>
+                </form>
             </div>
-
-        </div>
+        </Container>
     );
 }

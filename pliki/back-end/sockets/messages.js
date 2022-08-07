@@ -6,7 +6,7 @@ module.exports = function (io) {
     // Get the last 10 messages from the database.
     Message.find()
       .sort({ createdAt: -1 })
-      .limit(10)
+      .limit(5)
       .exec((err, messages) => {
         if (err) return console.error(err);
 
