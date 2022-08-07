@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import style from "../style/StudentData.module.scss";
 import Container from "../components/Container";
 import Button from "../components/Button";
+
 export default function StudentData() {
     const [status, setStatus] = useState({
         name: "",

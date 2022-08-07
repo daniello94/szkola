@@ -26,7 +26,7 @@ const fileFilter = (req, file, cb) => {
 }
 let upload = multer({ storage, fileFilter })
 
-router.post('/signup', authTeacher,upload.single('photo'), function (req, res) {
+router.post('/signup',upload.single('photo'), function (req, res) {
     user.add(req.body, function (err, user) {
         if (err) {
             res.status(404);
@@ -98,7 +98,7 @@ router.put('/update/:id', function (req, res) {
 });
 
 
-router.delete('/delete/:id', authTeacher, function (req, res) {
+router.delete('/delete/:id', function (req, res) {
     user.delete(req.params.id, function (err, data) {
         if (err) {
             res.status(404);

@@ -107,7 +107,7 @@ export default function Chat(props) {
                     classNr: props.dataUser.user.classNr,
                 })
                 console.log(res.data);
-                setError(<span className={style.AddPost}>dodałeś wpis</span>)
+                setError(<span className={style.AddPost}>dodałeś/aś wpis</span>)
                 listChat()
             })
         }

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
-
+import style from "../style/AddStudent.module.scss";
+import Button from "../components/Button";
+import Container from "../components/Container";
 
 const validateName = form => {
     if (!form.name) {
@@ -32,7 +34,7 @@ const validateNumberId = form => {
     } else if (form.numberId.length >= 12) {
         return "Podałes za dużo cyf Pesel składa się z 11 liczb"
     } else if (/\D/.test(form.numberId)) {
-        return "Podałeś błędny znak numer Pesel składa sie z samych cyfr"
+        return "Podałeś błędny znak. Numer Pesel składa sie z samych cyfr"
     }
 };
 
@@ -142,7 +144,7 @@ export default function StudentAdd() {
 
             })
                 .then(() => {
-                    setError(<span>Dodałeś ucznia</span>)
+                    setError(<span className={style.ErrorCorrect}>Dodałeś ucznia</span>)
                 })
             setForm({
                 name: "",
@@ -180,77 +182,98 @@ export default function StudentAdd() {
     const { name, lastName, photo, numberId, nameMather, nameFather, email, classNr, role, password, passwordRep, city, street, nr, zipCode } = form
 
     return (
-        <div className="container">
-            <div className="form">
-                <h2>Dodaj Ucznia </h2>
-                <p className="error">{error}</p>
-                <form encType="multipart/form-data">
+        <Container>
+            <p className={style.ErrorCorrect}>{error}</p>
+            <form className={style.AddStudentFrom} encType="multipart/form-data">
+                <label>
+                    <span className={style.ContentHederLabel}>
+                        Dane Personalne ucznia
+                    </span>
 
-                    <input type="file" accept=".png, .jpg, .jpeg" name="photo" onChange={handlePhoto}>
-                    </input>
-
+                    <input type="file" accept=".png, .jpg, .jpeg" name="photo" onChange={handlePhoto} />
                     <input onChange={stateStudent} value={name} type="text" name="name" placeholder="Podaj imie ucznia" />
-                    <span className="error">
-                        {errorName}</span>
-
+                    <span className={style.Error}>
+                        {errorName}
+                    </span>
                     <input onChange={stateStudent} value={lastName} type="text" name="lastName" placeholder="Podaj nazwisko ucznia" />
-                    <span className="error">{errorLastName}</span>
-
-                    <label>Podaj klase ucznia
-                        <select onChange={stateStudent} value={classNr} type="text" name="classNr">
-                            <option>wybierz</option>
-                            <option>1a</option>
-                            <option>1b</option>
-                            <option>1c</option>
-                            <option>2a</option>
-                            <option>2b</option>
-                            <option>2c</option>
-                            <option>3a</option>
-                            <option>3b</option>
-                            <option>3c</option>
-                            <option>4a</option>
-                            <option>4b</option>
-                            <option>4c</option>
-                        </select>
-                    </label>
-                    <span className="error">{errorClassNr}</span>
+                    <span className={style.Error}>
+                        {errorLastName}
+                    </span>
                     <input onChange={stateStudent} value={numberId} type="text" name="numberId" placeholder="Podaj Pesel ucznia" />
-                    <span className="error">{errorNumberId}</span>
+                    <span className={style.Error}>
+                        {errorNumberId}
+                    </span>
+                    <input onChange={stateStudent} value={nameMather} type="text" name="nameMather" placeholder="Podaj imie matki ucznia" />
+                    <input onChange={stateStudent} value={nameFather} type="text" name="nameFather" placeholder="Podaj imie ojca ucznia" />
+                </label>
 
-                    <input onChange={stateStudent} value={nameMather} type="text" name="nameMather" placeholder="Podaj imie matki ucznia"></input>
-                    <input onChange={stateStudent} value={nameFather} type="text" name="nameFather" placeholder="Podaj imie ojca ucznia"></input>
+                <label>
+                    <span className={style.ContentHederLabel}>
+                        Podaj klase ucznia
+                    </span>
+                    <select onChange={stateStudent} value={classNr} type="text" name="classNr">
+                        <option>wybierz</option>
+                        <option>1a</option>
+                        <option>1b</option>
+                        <option>1c</option>
+                        <option>2a</option>
+                        <option>2b</option>
+                        <option>2c</option>
+                        <option>3a</option>
+                        <option>3b</option>
+                        <option>3c</option>
+                        <option>4a</option>
+                        <option>4b</option>
+                        <option>4c</option>
+                    </select>
+                </label>
+                <span className={style.Error}>{errorClassNr}</span>
 
-                    <label>Adres
-                        <input onChange={stateStudent} value={city} type="text" name="city" placeholder="Miasto" />
+                <label>
+                    <span className={style.ContentHederLabel}>
+                      Adres  
+                    </span>
+                    
+                    <input onChange={stateStudent} value={city} type="text" name="city" placeholder="Miasto" />
 
-                        <input onChange={stateStudent} value={street} type="text" name="street" placeholder="ulica" />
+                    <input onChange={stateStudent} value={street} type="text" name="street" placeholder="ulica" />
 
-                        <input onChange={stateStudent} value={nr} type="text" name="nr" placeholder="numer domu" />
+                    <input onChange={stateStudent} value={nr} type="text" name="nr" placeholder="numer domu" />
 
-                        <input onChange={stateStudent} value={zipCode} type="text" name="zipCode" placeholder="Kod pocztowy"></input>
-                    </label>
-                    <label>Dane konta ucznia
-                        <input onChange={stateStudent} value={email} type="text" name="email" placeholder="Podaj email ucznia" />
-                        <span className="error">{errorEmail}</span>
+                    <input onChange={stateStudent} value={zipCode} type="text" name="zipCode" placeholder="Kod pocztowy"></input>
+                </label>
 
-                        <input onChange={stateStudent} value={password} type="password" name="password" placeholder="Podaj hasło" />
-                        <span className="error">{errorPassword}</span>
+                <label>
+                    <span className={style.ContentHederLabel}>
+                       Dane konta ucznia 
+                    </span>
+                    
+                    <input onChange={stateStudent} value={email} type="text" name="email" placeholder="Podaj email ucznia" />
+                    <span className={style.Error}>{errorEmail}</span>
 
-                        <input onChange={stateStudent} type="password" value={passwordRep} name="passwordRep" placeholder="Powtórz hasło" />
-                        <span className="error">{errorPasswordRep}</span>
+                    <input onChange={stateStudent} value={password} type="password" name="password" placeholder="Podaj hasło" />
+                    <span className={style.Error}>{errorPassword}</span>
 
-                    </label>
-                    <label>Typ konta
-                        <select name="role" onChange={stateStudent} value={role}>
-                            <option>wybierz</option>
-                            <option>student</option>
-                        </select>
-                    </label>
-                    <span className="error">{errorRole}</span>
+                    <input onChange={stateStudent} type="password" value={passwordRep} name="passwordRep" placeholder="Powtórz hasło" />
+                    <span className={style.Error}>{errorPasswordRep}</span>
 
-                    <button className="btn-1" onClick={addStudent} type="submit">Dodaj</button>
-                </form>
-            </div>
-        </div>
+                </label>
+
+                <label>
+                    <span className={style.ContentHederLabel}>
+                      Typ konta  
+                    </span>
+                    
+                    <select name="role" onChange={stateStudent} value={role}>
+                        <option>wybierz</option>
+                        <option>student</option>
+                    </select>
+                </label>
+                <span className={style.Error}>{errorRole}</span>
+
+                <Button isAlternative={true} className="btn-1" onClick={addStudent} type="submit">Dodaj</Button>
+            </form>
+
+        </Container>
     )
 }

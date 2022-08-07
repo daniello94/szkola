@@ -1,0 +1,45 @@
+%CommonPart {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: center;
+}
+.Error {
+    color: red;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+.ErrorAddCorrect {
+    color: #008000;
+}
+.AddGradesFrom {
+    @extend %CommonPart;
+    opacity: 0.9;
+    width: 70%;
+    label {
+        @extend %CommonPart;
+        margin-bottom: 5px;
+        width: 90%;
+        input,
+        select {
+            width: 60%;
+            padding: 10px;
+            margin: 5px;
+            &:focus {
+                background-color: #f0fff0;
+            }
+        }
+        input {
+            width: 57%;
+        }
+    }
+    textarea {
+        width: 70%;
+        height: 100px;
+        margin-bottom: 10px;
+        &:focus {
+            background-color: #f0fff0;
+        }
+    }
+}

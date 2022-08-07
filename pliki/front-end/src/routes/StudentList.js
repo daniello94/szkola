@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
-import List from "./List"
+import List from "./List";
+import Container from "../components/Container";
+import Button from "../components/Button";
+import style from "../style/StudentList.module.scss";
 
 class StudentList extends Component {
     constructor(props) {
@@ -24,9 +27,9 @@ class StudentList extends Component {
     };
     render() {
         return (
-            <div className="container">
-                <div className="div-list">
-                    <select className="select-class" onChange={(e) => {
+            <Container>
+                <div className={style.ListComponent}>
+                    <select onChange={(e) => {
                         this.setState({ group: e.target.value }, () => {
                             this.listStudents();
                         })
@@ -47,7 +50,7 @@ class StudentList extends Component {
                     </select>
                     <List dataStudents={this.state.dataStudent} dataStudent={this.listStudents} />
                 </div>
-            </div>
+            </Container>
         )
     }
 }

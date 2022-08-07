@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom"
-
+import style from "../style/StudentList.module.scss";
+import Button from "../components/Button";
 
 export default function List(props) {
     const [remove, setRemove] = useState("")
@@ -21,60 +22,62 @@ export default function List(props) {
     let element = dataStudent.map((student) => {
         if (remove === student._id) {
             return (
-                    <tr key={student._id}>
-                        <td className="box">{student.name}</td>
-                        <td className="box">{student.lastName}</td>
-                        <td className="box">{student.classNr}</td>
-                        <td className="box">{student.email}</td>
-                        <td className="box">
-                            <span>Jesteś pewien? <br/>
-                            <button onClick={() => deleteUser(student._id)} className="btn-4">Tak</button>
-                            <button onClick={() => setRemove("")} className="btn-4">NIe</button>
-                        </span>
-                        </td>
-                    </tr>
-            )
-        }
-        return (
                 <tr key={student._id}>
                     <td className="box">{student.name}</td>
                     <td className="box">{student.lastName}</td>
                     <td className="box">{student.classNr}</td>
                     <td className="box">{student.email}</td>
                     <td className="box">
-                        <Link className="btn" to={`/studentData/${student._id}`}>Wiecej Informacji</Link>
-                        <Link className="btn" to={`/addGrades/${student._id}`}>Dodaj Ocene</Link>
-                        <button onClick={() => questionDelete(student._id)} className="btn">Usuń ucznia</button>
+                        <span className={style.DeleteQuestion}>{student.name} {student.lastName} z {student.classNr} zostanie usunięty/a jesteś pewien ? <br />
+                            <div className={style.ButtonSection}>
+                                <Button onClick={() => deleteUser(student._id)}>Tak</Button>
+                                <Button onClick={() => setRemove("")}>NIe</Button>
+                            </div>
+
+                        </span>
                     </td>
                 </tr>
-            
+            )
+        }
+        return (
+            <tr key={student._id}>
+                <td className="box">{student.name}</td>
+                <td className="box">{student.lastName}</td>
+                <td className="box">{student.classNr}</td>
+                <td className="box">{student.email}</td>
+                <td className={style.LinkComponent}>
+                    <Link className={style.BtnLink} to={`/studentData/${student._id}`}>Wiecej Informacji</Link>
+                    <Link className={style.BtnLink} to={`/addGrades/${student._id}`}>Dodaj Ocene</Link>
+                    <Button isAlternative={true} onClick={() => questionDelete(student._id)}>Usuń ucznia</Button>
+                </td>
+            </tr>
+
 
         )
     })
 
     return (
-        <div className="container">
-            <div className="table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th colSpan="5">Lista uczniów</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr className="title-box">
-                            <td>Imię</td>
-                            <td>Nazwisko</td>
-                            <td>Klasa</td>
-                            <td>Email</td>
-                            <td>Akcje</td>
-                        </tr>
-                        {element}
-                    </tbody>
-                </table>
-                <Link className="btn" to="/studentAdd">Dodaj ucznia</Link>
+        <div >
+            <table className={style.StudentListTable}>
+                <thead>
+                    <tr>
+                        <th colSpan="5">Lista uczniów</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr className={style.StudentTitle}>
+                        <td>Imię</td>
+                        <td>Nazwisko</td>
+                        <td>Klasa</td>
+                        <td>Email</td>
+                        <td>Akcje</td>
+                    </tr>
+                    {element}
+                </tbody>
+            </table>
+            <div className={style.LinkComponent}>
+                <Link className={style.BtnLink} to="/studentAdd">Dodaj ucznia</Link>
             </div>
         </div>
-
     )
 }
