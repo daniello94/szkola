@@ -23,7 +23,7 @@ export default function MyGrades(_id) {
 
     useEffect(() => {
         oneUser(id)
-    }, [])
+    }, [id])
 
     return (
         <Container>
@@ -34,8 +34,7 @@ export default function MyGrades(_id) {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr className={style.box} colSpan="4">
-                        <table className={style.tableGrades} colSpan="3">
+                        <>
                             {status.results.map((result) => {
                                 let gradeSum = 0
                                 result.grades.forEach(grade => {
@@ -47,7 +46,7 @@ export default function MyGrades(_id) {
                                         <tr>
                                             <th className={style.titleSubject} colSpan="3">
                                                 {result?.nameSubject}
-                                                <span className={style.Average}>Średnia: {(gradeSum / result.grades.length).toFixed(2)}</span>
+                                                <span className={style.average}>Średnia: {(gradeSum / result.grades.length).toFixed(2)}</span>
                                             </th>
                                         </tr>
                                         <tr className={style.titleBoxSubject}>
@@ -58,7 +57,7 @@ export default function MyGrades(_id) {
                                         {result.grades.map((grade) => {
                                             return (
                                                 <>
-                                                    <tr>
+                                                    <tr key={grade._id} className={style.box}>
                                                         <td>
                                                             {grade?.titleTask}
                                                         </td>
@@ -70,7 +69,7 @@ export default function MyGrades(_id) {
                                                         </td>
                                                     </tr>
                                                     {more &&
-                                                        <tr>
+                                                        <tr className={style.box}>
                                                             <td colSpan="3">
                                                                 {grade?.textarea}
                                                             </td>
@@ -82,8 +81,7 @@ export default function MyGrades(_id) {
                                     </>
                                 )
                             })}
-                        </table>
-                    </tr>
+                        </>
                 </tbody>
             </table>
             <Button onClick={() => setMore(!more)}>{more ? "Ukryj opisy" : "Wyswetl opisy"}</Button>

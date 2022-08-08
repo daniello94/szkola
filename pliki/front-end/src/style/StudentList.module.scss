@@ -1,4 +1,4 @@
-.ListComponent {
+.listComponent {
     width: 80%;
     opacity: 0.9;
     select {
@@ -19,7 +19,7 @@
         }
     }
 
-    .StudentListTable {
+    .studentListTable {
         width: 100%;
         margin-bottom: 10px;
         tr,
@@ -33,7 +33,7 @@
             background-color: #e0ece0;
         }
         td {
-            .DeleteQuestion {
+            .deleteQuestion {
                 margin-bottom: 5px;
                 display: flex;
                 flex-wrap: nowrap;
@@ -41,27 +41,27 @@
                 align-items: center;
                 font-family: Georgia, "Times New Roman", Times, serif;
                 color: red;
-                .ButtonSection {
+                .buttonSection {
                     margin-top: 5px;
                 }
             }
         }
 
         thead tr,
-        .StudentTitle {
+        .studentTitle {
             background-color: #008000;
             color: white;
             font-family: Verdana, Geneva, Tahoma, sans-serif;
             text-align: center;
         }
     }
-    .LinkComponent {
+    .linkComponent {
         display: flex;
         flex-wrap: nowrap;
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        .BtnLink {
+        .btnLink {
             color: #008000;
             margin-right: 10px;
             text-decoration: none;

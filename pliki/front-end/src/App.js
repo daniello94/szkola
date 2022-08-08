@@ -22,7 +22,7 @@ import style from './style/Menu.module.scss';
 
 export default function App() {
   const [isActive, setActive] = useState("close")
-  const [isClose,setClose]=useState('mobileHamburger')
+  const [isClose, setClose] = useState('mobileHamburger')
   const [userData, setUser] = useState(
     JSON.parse(localStorage.getItem("user"))
   );
@@ -46,7 +46,7 @@ export default function App() {
     setActive('open')
     setClose('close')
   }
-  const onClose = () =>{
+  const onClose = () => {
     setClose('mobileHamburger')
     setActive('close')
   }
@@ -56,9 +56,13 @@ export default function App() {
       <nav className={style.mainNav}>
         <div className={style.container}>
           <div className={style.mainNavHolder}>
-            <div className={style[isClose]} onClick={()=>onOpen()}> <FontAwesomeIcon className="icon-open" icon={faBars} /></div>
+            <div className={style[isClose]} onClick={() => onOpen()}>
+              <FontAwesomeIcon className="icon-open" icon={faBars} />
+            </div>
             <div className={style[isActive]}>
-              <div className={style.closeMobileHamburger} onClick={()=>onClose()}> <FontAwesomeIcon className="icon-close" icon={faXmark} /></div>
+              <div className={style.closeMobileHamburger} onClick={() => onClose()}>
+                <FontAwesomeIcon className="icon-close" icon={faXmark} />
+              </div>
               <ul className={style.menu}>
                 {userData && userData.user.role === "teacher" && (
                   <li className={style.mainItem}>
@@ -102,7 +106,7 @@ export default function App() {
 
                 {userData && (
                   <li className={style.mainItem}>
-                    <Link className={style.ulItem}onClick={logOut} to="/">
+                    <Link className={style.ulItem} onClick={logOut} to="/">
                       Wyloguj
                     </Link>
                   </li>

@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import Container from "../components/Container";
-import style from "../style/UserData.module.scss"
+import style from "../style/UserData.module.scss";
 
 export default function UserData(_id) {
 
@@ -17,6 +17,7 @@ export default function UserData(_id) {
         nameFather: "",
         email: "",
         role: "",
+        photo:"",
         address: {
             city: "",
             street: "",
@@ -24,7 +25,6 @@ export default function UserData(_id) {
             zipCode: ""
         }
     });
-
     function oneUser(id) {
         axios.get('http://127.0.0.1:8080/api/user/' + id)
             .then((res) => {
@@ -34,12 +34,18 @@ export default function UserData(_id) {
 
     useEffect(() => {
         oneUser(id)
-    }, [])
+    }, [id])
 
 
+const photos = status.photo;
+console.log(photos);
     return (
         <Container>
-            <table className={style.TableUserData}>
+            <div>
+                
+             {/* <img src={require('./../../../back-end/images/'+ photos) } alt="sjsn"/> */}
+            </div>
+            <table className={style.tableUserData}>
                 <thead>
                     <tr>
                         <th colSpan="2">{status.name} {status.lastName}</th>

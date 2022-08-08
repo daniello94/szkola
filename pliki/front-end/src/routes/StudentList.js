@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 import List from "./List";
 import Container from "../components/Container";
-import Button from "../components/Button";
 import style from "../style/StudentList.module.scss";
 
 class StudentList extends Component {
@@ -28,7 +27,7 @@ class StudentList extends Component {
     render() {
         return (
             <Container>
-                <div className={style.ListComponent}>
+                <div className={style.listComponent}>
                     <select onChange={(e) => {
                         this.setState({ group: e.target.value }, () => {
                             this.listStudents();

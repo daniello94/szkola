@@ -78,6 +78,8 @@ const validate = form => {
 
 
 export default function StudentAdd() {
+    const [isActive, setActive] = useState("close")
+    const [baseImage, setBaseImage] = useState('')
     const [error, setError] = useState("");
     const [errorEmail, setErrorEmail] = useState("");
     const [errorPassword, setErrorPassword] = useState("");
@@ -92,19 +94,11 @@ export default function StudentAdd() {
         lastName: "",
         classNr: "",
         numberId: "",
-        nameMather: "",
-        nameFather: "",
         email: "",
         password: "",
         passwordRep: "",
         role: "",
         photo: "",
-        address: {
-            city: "",
-            street: "",
-            nr: "",
-            zipCode: ""
-        }
     });
 
     console.log(form);
@@ -131,84 +125,117 @@ export default function StudentAdd() {
             setErrorRole(errorRole)
             return
         } else {
-            const { name, lastName, numberId, classNr, nameMather, nameFather, role, email, password, passwordRep,
-                city, street, nr, zipCode, photo } = form
-            axios.post('http://127.0.0.1:8080/api/user/signup', {
-                name, lastName, numberId, classNr, nameMather, nameFather, role, email, password, passwordRep, photo,
-                address: {
-                    city,
-                    street,
-                    nr,
-                    zipCode
-                }
+            const { name,
+                lastName,
+                numberId,
+                classNr,
+                role,
+                email,
+                password,
+                passwordRep,
+                photo
+            } = form
 
-            })
+            const formData = new FormData();
+            formData.append("name", name);
+            formData.append("photo", photo);
+            formData.append("email", email);
+            formData.append("lastName", lastName,);
+            formData.append("numberId", numberId);
+            formData.append("classNr", classNr);
+            formData.append("role", role);
+            formData.append("password", password,);
+            formData.append("passwordRep", passwordRep);
+           
+
+            axios.post('http://127.0.0.1:8080/api/user/signup', formData)
                 .then(() => {
-                    setError(<span className={style.ErrorCorrect}>Dodałeś ucznia</span>)
+                    setError(<span className={style.errorCorrect}>Dodałeś ucznia</span>)
                 })
             setForm({
                 name: "",
                 lastName: "",
                 numberId: "",
                 classNr: "",
-                nameMather: "",
-                nameFather: "",
                 role: "",
                 email: "",
                 password: "",
                 passwordRep: "",
-                city: "",
-                street: "",
-                nr: "",
-                zipCode: "",
                 photo: ""
             })
         }
-    }
-    const handlePhoto = (e) => {
+    };
+
+    const handlePhoto = async (e) => {
+        const file = e.target.files[0]
+        const base64 = await convertBase64(file);
+        setBaseImage(base64);
+        onOpen()
+
         setForm({
             ...form,
-            photo: e.target.files[0]
+            photo: e.target.files[0],
         })
-        console.log(form.photo);
-    }
+    };
+
+    const convertBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file)
+
+            fileReader.onload = () => {
+                resolve(fileReader.result)
+            };
+
+            fileReader.onerror = (error) => {
+                reject(error)
+            }
+        })
+    };
+
+    const onOpen = () => {
+        setActive('open')
+    };
+
     let stateStudent = (e) => {
         setForm({
             ...form,
             [e.target.name]: e.target.value,
         })
-
-    }
-    const { name, lastName, photo, numberId, nameMather, nameFather, email, classNr, role, password, passwordRep, city, street, nr, zipCode } = form
+    };
+    const { name, lastName, numberId,  email, classNr, role, password, passwordRep } = form
 
     return (
         <Container>
-            <p className={style.ErrorCorrect}>{error}</p>
-            <form className={style.AddStudentFrom} encType="multipart/form-data">
+            <p className={style.errorCorrect}>
+                {error}
+            </p>
+
+            <form className={style.addStudentFrom} encType="multipart/form-data">
                 <label>
-                    <span className={style.ContentHederLabel}>
+                    <span className={style.contentHederLabel}>
                         Dane Personalne ucznia
                     </span>
-
+                    <div className={style[isActive]}>
+                        <img src={baseImage} alt="Brak Zdjecia" />
+                    </div>
                     <input type="file" accept=".png, .jpg, .jpeg" name="photo" onChange={handlePhoto} />
                     <input onChange={stateStudent} value={name} type="text" name="name" placeholder="Podaj imie ucznia" />
-                    <span className={style.Error}>
+                    <span className={style.error}>
                         {errorName}
                     </span>
                     <input onChange={stateStudent} value={lastName} type="text" name="lastName" placeholder="Podaj nazwisko ucznia" />
-                    <span className={style.Error}>
+                    <span className={style.error}>
                         {errorLastName}
                     </span>
                     <input onChange={stateStudent} value={numberId} type="text" name="numberId" placeholder="Podaj Pesel ucznia" />
-                    <span className={style.Error}>
+                    <span className={style.error}>
                         {errorNumberId}
                     </span>
-                    <input onChange={stateStudent} value={nameMather} type="text" name="nameMather" placeholder="Podaj imie matki ucznia" />
-                    <input onChange={stateStudent} value={nameFather} type="text" name="nameFather" placeholder="Podaj imie ojca ucznia" />
                 </label>
 
                 <label>
-                    <span className={style.ContentHederLabel}>
+                    <span className={style.contentHederLabel}>
                         Podaj klase ucznia
                     </span>
                     <select onChange={stateStudent} value={classNr} type="text" name="classNr">
@@ -227,53 +254,42 @@ export default function StudentAdd() {
                         <option>4c</option>
                     </select>
                 </label>
-                <span className={style.Error}>{errorClassNr}</span>
+                <span className={style.error}>{errorClassNr}</span>
 
                 <label>
-                    <span className={style.ContentHederLabel}>
-                      Adres  
+                    <span className={style.contentHederLabel}>
+                        Dane konta ucznia
                     </span>
-                    
-                    <input onChange={stateStudent} value={city} type="text" name="city" placeholder="Miasto" />
 
-                    <input onChange={stateStudent} value={street} type="text" name="street" placeholder="ulica" />
-
-                    <input onChange={stateStudent} value={nr} type="text" name="nr" placeholder="numer domu" />
-
-                    <input onChange={stateStudent} value={zipCode} type="text" name="zipCode" placeholder="Kod pocztowy"></input>
-                </label>
-
-                <label>
-                    <span className={style.ContentHederLabel}>
-                       Dane konta ucznia 
-                    </span>
-                    
                     <input onChange={stateStudent} value={email} type="text" name="email" placeholder="Podaj email ucznia" />
-                    <span className={style.Error}>{errorEmail}</span>
+                    <span className={style.error}>{errorEmail}</span>
 
                     <input onChange={stateStudent} value={password} type="password" name="password" placeholder="Podaj hasło" />
-                    <span className={style.Error}>{errorPassword}</span>
+                    <span className={style.error}>{errorPassword}</span>
 
                     <input onChange={stateStudent} type="password" value={passwordRep} name="passwordRep" placeholder="Powtórz hasło" />
-                    <span className={style.Error}>{errorPasswordRep}</span>
+                    <span className={style.error}>{errorPasswordRep}</span>
 
                 </label>
 
                 <label>
-                    <span className={style.ContentHederLabel}>
-                      Typ konta  
+                    <span className={style.contentHederLabel}>
+                        Typ konta
                     </span>
-                    
+
                     <select name="role" onChange={stateStudent} value={role}>
                         <option>wybierz</option>
                         <option>student</option>
                     </select>
                 </label>
-                <span className={style.Error}>{errorRole}</span>
+                <span className={style.error}>
+                    {errorRole}
+                </span>
 
-                <Button isAlternative={true} className="btn-1" onClick={addStudent} type="submit">Dodaj</Button>
+                <Button isAlternative={true} onClick={addStudent} type="submit">
+                    Dodaj
+                </Button>
             </form>
-
         </Container>
     )
 }

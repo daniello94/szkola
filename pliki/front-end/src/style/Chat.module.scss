@@ -1,26 +1,26 @@
-%CommonPart{
+%commonPart{
     display: flex;
     flex-wrap: nowrap;
     flex-direction: column;
     align-items: center;
 }
 
-.ChatScroll{
+.chatScroll{
     width: 100%;
     height: 750px;
-    @extend %CommonPart;
+    @extend %commonPart;
     overflow: scroll;
     background-image: url("../img/wepik-photo-mode-202277-212338.png");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     
-    .ChatMessage{
+    .chatMessage{
         width: 65%;
         margin-top: 20px;
-        @extend %CommonPart;
+        @extend %commonPart;
         padding: 5px;
-        .ChatTitle{
+        .chatTitle{
             padding: 5px;
             margin-right: 20%;
             font-size: 10px;
@@ -28,13 +28,13 @@
             font-weight: 800;
             font-size: 20px;
         }
-        .ChatContent{
+        .chatContent{
            align-items: flex-start;
             font-family: 'Indie Flower', cursive;
             margin-right: auto;
             font-size: 25px;
         }
-        .ChatDatum{
+        .chatDatum{
             font-size: 15px;
             margin-left: auto;
             font-family: 'Indie Flower', cursive;
@@ -43,13 +43,13 @@
     }
 }
 
-.ContentSendMessage{
-    @extend %CommonPart;
+.contentSendMessage{
+    @extend %commonPart;
     flex-direction: row;
     width: 100%;
     height: 200px;
     opacity: 0.9;
-    .WebUser{
+    .webUser{
         width: 20%;
         height: 100%;
         display: flex;
@@ -61,8 +61,8 @@
         font-family:'Indie Flower', cursive;
         font-weight: 800;
     }
-    .FromChat{
-        @extend %CommonPart;
+    .fromChat{
+        @extend %commonPart;
         flex-direction: row;
         width: 79%;
         height: 100%;
@@ -75,10 +75,12 @@
                 background-color: #e0ece0;
             }
         }
-        .ButtonSend{
+        .buttonSend{
             width: 10%;
             height: 100%;
             background-color: #008000;
+            border: 2px solid #008000;
+            border-radius: 5px;
             color: white;
             font-family:'Indie Flower', cursive ;
             font-weight: bold;

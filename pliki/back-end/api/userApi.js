@@ -1,9 +1,11 @@
 const express = require("express");
 
 const router = express.Router();
+
 const multer = require('multer');
 const { v4: uuidv4 } = require('uuid')
 const path = require('path')
+
 const user = require('../api/controllers/user.controllers');
 const authTeacher = require("../api/midleweres/authTeacher");
 
@@ -26,8 +28,38 @@ const fileFilter = (req, file, cb) => {
 }
 let upload = multer({ storage, fileFilter })
 
-router.post('/signup',upload.single('photo'), function (req, res) {
-    user.add(req.body, function (err, user) {
+router.post('/signup', upload.single('photo'), function (req, res) {
+    const name = req.body.name;
+    const photo = req.file.filename;
+    const email = req.body.email;
+    const role = req.body.role;
+    const password = req.body.password;
+    const lastName = req.body.lastName;
+    const classNr = req.body.classNr;
+    const numberId = req.body.numberId;
+    const nameFather = req.body.nameFather;
+    const nameMather = req.body.nameMather;
+    const city = req.body.city;
+    const street = req.body.street;
+    const nr = req.body.nr;
+    const zipCode = req.body.zipCode;
+    const newUserData = {
+        name,
+        photo,
+        email,
+        password,
+        role,
+        lastName,
+        classNr,
+        numberId,
+        nameFather,
+        nameMather,
+        city,
+        street,
+        nr,
+        zipCode
+    }
+    user.add(newUserData, function (err, user) {
         if (err) {
             res.status(404);
             res.json({

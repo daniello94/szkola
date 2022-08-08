@@ -107,7 +107,7 @@ export default function Chat(props) {
                     classNr: props.dataUser.user.classNr,
                 })
                 console.log(res.data);
-                setError(<span className={style.AddPost}>dodałeś/aś wpis</span>)
+                setError(<span className={style.addPost}>dodałeś/aś wpis</span>)
                 listChat()
             })
         }
@@ -129,37 +129,37 @@ export default function Chat(props) {
     if (response === status._id) {
         return (
             <Container>
-                <div className={style.MessageBlog}>
-                    <span className={style.MessageBlogTitle} key={onePost._id}>
+                <div className={style.messageBlog}>
+                    <span className={style.messageBlogTitle} key={onePost._id}>
                         {onePost.title}
                     </span><br />
-                    <span className={style.AuthorPost}>
+                    <span className={style.authorPost}>
                         To jest post urzytkownika: {onePost.name} {onePost.classNr}
                     </span>
-                    <span className={style.DatumBlog}>
+                    <span className={style.datumBlog}>
                         {moment(onePost.createdAt).format('DD/MM/YYYY - hh:mm:ss')}
                     </span>
-                    <span className={style.BlogContent}>
+                    <span className={style.blogContent}>
                         {onePost.content}
                     </span>
                 </div>
                 {onePost.responses.map((responses) => {
                     return (
-                        <div className={style.MessageBlogResponse}>
-                            <span key={responses._id} className={style.MessageBlogUserResponse}>
+                        <div key={responses._id} className={style.messageBlogResponse}>
+                            <span key={responses._id} className={style.messageBlogUserResponse}>
                                 {responses.name} {responses.classNr} napisał/a:
                             </span> <br />
-                            <span className={style.BlogContent}>
+                            <span className={style.blogContent}>
                                 {responses.content}
                             </span>
-                            <span className={style.DatumBlog}>
+                            <span className={style.datumBlog}>
                                 {moment(responses.createdAt).format('DD/MM/YYYY - hh:mm:ss')}
                             </span>
                         </div>
                     )
                 })}
 
-                <form className={style.SendResponseBlog}>
+                <form className={style.sendResponseBlog}>
                     <label>
                         Twoja odpowiedź {form.name} to:
                     </label>
@@ -181,17 +181,17 @@ export default function Chat(props) {
 
             {status.map(message => {
                 return (
-                    <div className={style.MessageBlog}>
-                        <span className={style.MessageBlogTitle} key={message._id}>
+                    <div key={message._id} className={style.messageBlog}>
+                        <span className={style.messageBlogTitle} key={message._id}>
                             {message.title}
                         </span><br />
-                        <span className={style.AuthorPost}>
+                        <span className={style.authorPost}>
                             Post urzytkownika: {message.name} {message.classNr}
                         </span>
-                        <span className={style.BlogContent}>
+                        <span className={style.blogContent}>
                             {message.content}
                         </span>
-                        <span className={style.DatumBlog}>
+                        <span className={style.datumBlog}>
                             {moment(message.createdAt).format('DD/MM/YYYY - hh:mm:ss')}
                         </span>
                         <Button isAlternative={true} onClick={() => oneMessages(message._id)}>
@@ -206,15 +206,15 @@ export default function Chat(props) {
                 {more ? "Ukryj pole tekstowe" : "Utwórz nowy temat bloga"}
             </Button>
             {more &&
-                <form className={style.FromAddContent}>
+                <form className={style.fromAddContent}>
                     <label value={name} onChange={stateChat}>
-                        <span className={style.TextLabel}>
-                            {form.name} {form.classNr} <span className={style.Error}>
+                        <span className={style.textLabel}>
+                            {form.name} {form.classNr} <span className={style.error}>
                                 {error}
                             </span>
                         </span>
-                        <input className='input-blog' value={title} onChange={stateChat} type="text" name='title' placeholder='Tutaj wpisz temat' />
-                        <textarea className='input-chat' value={content} onChange={stateChat} type="text" name='content' placeholder='Tutaj napisz trść posta' />
+                        <input value={title} onChange={stateChat} type="text" name='title' placeholder='Tutaj wpisz temat' />
+                        <textarea value={content} onChange={stateChat} type="text" name='content' placeholder='Tutaj napisz trść posta' />
                     </label>
                     <Button isAlternative={true} type='submit' onClick={addMessages}>
                         Dodaj wpis

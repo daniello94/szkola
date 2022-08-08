@@ -13,14 +13,12 @@ export default function Chat(props) {
     useEffect(() => {
         // Load the last 10 messages in the window.
         socket.on("init", (msg) => {
-            console.log(msg);
             let msgReversed = msg.reverse();
             setMessages(msgReversed);
         });
 
         // Update the chat if a new message is broadcasted.
         socket.on("push", (msg) => {
-            console.log(msg);
             setMessages(oldState => oldState.concat(msg));
         });
     }, []);
@@ -37,30 +35,30 @@ export default function Chat(props) {
 
     return (
         <Container>
-            <div className={style.ChatScroll}>
+            <div className={style.chatScroll}>
                 {messages.map((message) => {
                     return (
-                        <div className={style.ChatMessage} key={message._id}>
-                            <span className={style.ChatTitle}>
+                        <div className={style.chatMessage} key={message._id}>
+                            <span className={style.chatTitle}>
                                 {message.name} {message.classNr}
                             </span>
-                            <span className={style.ChatContent}>
+                            <span className={style.chatContent}>
                                 {message.content}
                             </span>
-                            <span className={style.ChatDatum}>
+                            <span className={style.chatDatum}>
                                 {moment(message.createdAt).format('DD/MM/YYYY - hh:mm:ss')}
                             </span>
                         </div>
                     )
                 })}
             </div>
-            <div className={style.ContentSendMessage}>
-                <span className={style.WebUser}>{props.dataUser.user.name} {props.dataUser.user.classNr}</span><br />
-                <form className={style.FromChat} onSubmit={handleSubmit}>
+            <div className={style.contentSendMessage}>
+                <span className={style.webUser}>{props.dataUser.user.name} {props.dataUser.user.classNr}</span><br />
+                <form className={style.fromChat} onSubmit={handleSubmit}>
                     <textarea placeholder="Napisz swoją wiadomość"
                         onChange={(e) => setFormData(e.target.value)}
                         value={formData} />
-                    <button className={style.ButtonSend}>wyślij</button>
+                    <button className={style.buttonSend}>wyślij</button>
                 </form>
             </div>
         </Container>

@@ -28,8 +28,8 @@ export default function List(props) {
                     <td className="box">{student.classNr}</td>
                     <td className="box">{student.email}</td>
                     <td className="box">
-                        <span className={style.DeleteQuestion}>{student.name} {student.lastName} z {student.classNr} zostanie usunięty/a jesteś pewien ? <br />
-                            <div className={style.ButtonSection}>
+                        <span className={style.deleteQuestion}>{student.name} {student.lastName} z {student.classNr} zostanie usunięty/a jesteś pewien ? <br />
+                            <div className={style.buttonSection}>
                                 <Button onClick={() => deleteUser(student._id)}>Tak</Button>
                                 <Button onClick={() => setRemove("")}>NIe</Button>
                             </div>
@@ -45,9 +45,9 @@ export default function List(props) {
                 <td className="box">{student.lastName}</td>
                 <td className="box">{student.classNr}</td>
                 <td className="box">{student.email}</td>
-                <td className={style.LinkComponent}>
-                    <Link className={style.BtnLink} to={`/studentData/${student._id}`}>Wiecej Informacji</Link>
-                    <Link className={style.BtnLink} to={`/addGrades/${student._id}`}>Dodaj Ocene</Link>
+                <td className={style.linkComponent}>
+                    <Link className={style.btnLink} to={`/studentData/${student._id}`}>Wiecej Informacji</Link>
+                    <Link className={style.btnLink} to={`/addGrades/${student._id}`}>Dodaj Ocene</Link>
                     <Button isAlternative={true} onClick={() => questionDelete(student._id)}>Usuń ucznia</Button>
                 </td>
             </tr>
@@ -58,14 +58,14 @@ export default function List(props) {
 
     return (
         <div >
-            <table className={style.StudentListTable}>
+            <table className={style.studentListTable}>
                 <thead>
                     <tr>
                         <th colSpan="5">Lista uczniów</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr className={style.StudentTitle}>
+                    <tr className={style.studentTitle}>
                         <td>Imię</td>
                         <td>Nazwisko</td>
                         <td>Klasa</td>
@@ -75,8 +75,8 @@ export default function List(props) {
                     {element}
                 </tbody>
             </table>
-            <div className={style.LinkComponent}>
-                <Link className={style.BtnLink} to="/studentAdd">Dodaj ucznia</Link>
+            <div className={style.linkComponent}>
+                <Link className={style.btnLink} to="/studentAdd">Dodaj ucznia</Link>
             </div>
         </div>
     )

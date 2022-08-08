@@ -52,7 +52,7 @@ export default function AddGrades() {
 
 
             }).then(() => {
-                setError(<span className={style.ErrorAddCorrect}>Wystawiłeś ocene</span>)
+                setError(<span className={style.errorAddCorrect}>Wystawiłeś ocene</span>)
             })
             setStatus({
                 nameSubject: "",
@@ -76,8 +76,8 @@ export default function AddGrades() {
     } = status
     return (
         <Container>
-            <span className={style.Error}>{error}</span>
-            <from className={style.AddGradesFrom}>
+            <span className={style.error}>{error}</span>
+            <from className={style.addGradesFrom}>
                 <label>Przedmiot:
                     <select value={nameSubject} name="nameSubject" onChange={stateStudent}>
                         <option>Wybierz</option>

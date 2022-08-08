@@ -67,12 +67,12 @@ export default function StudentData() {
 
     useEffect(() => {
         oneStudent(id)
-    }, []);
+    }, [id]);
 
     if (update === status.id) {
         return (
             <Container>
-                <table className={style.tableStudent}>
+                <table key={status._id} className={style.tableStudent}>
                     <thead>
                         <tr>
                             <th colSpan="2">
@@ -114,7 +114,7 @@ export default function StudentData() {
                             <td>Miasto</td>
                             <td><input type="text" value={city} onChange={(e) => setCity(e.target.value)} name="city"></input></td>
                         </tr>
-                        <tr >
+                        <tr>
                             <td>Ulica i Numer</td>
                             <td>
                                 <input type="text" value={street} onChange={(e) => setStreet(e.target.value)} name="street"></input>
@@ -219,7 +219,7 @@ export default function StudentData() {
                 </tbody>
             </table>
 
-            <Button className="btn btn-2" onClick={() => {
+            <Button onClick={() => {
                 setName(status.name)
                 setLastName(status.lastName)
                 setClassNr(status.classNr)
@@ -265,7 +265,7 @@ export default function StudentData() {
                                     return (
                                         <>
                                             <tr>
-                                                <td  >
+                                                <td>
                                                     {grade?.titleTask}
                                                 </td>
                                                 <td>
