@@ -68,9 +68,11 @@ export default function StudentData() {
     useEffect(() => {
         oneStudent(id)
     }, [id]);
-
+    const photos = status.photo;
     if (update === status.id) {
+
         return (
+
             <Container>
                 <table key={status._id} className={style.tableStudent}>
                     <thead>
@@ -133,15 +135,18 @@ export default function StudentData() {
                     <Button onClick={() => updateUser(status._id)}>Zapisz</Button>
                     <Button onClick={() => setUpdate("")}>Anuluj</Button>
                 </div>
+
             </Container>
         )
     };
     return (
         <Container>
+
             <table className={style.tableStudent}>
                 <thead>
                     <tr>
                         <th colSpan="4">
+                            <img src={'http://localhost:8080/img/' + photos} alt="foto profil" /><br />
                             Uczeń {status.name} {status.lastName}
                         </th>
                     </tr>
@@ -283,6 +288,7 @@ export default function StudentData() {
                     })}
                 </tbody>
             </table>
+
         </Container>
     )
 }

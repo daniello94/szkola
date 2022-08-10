@@ -20,7 +20,7 @@ const socketMessages = require("./sockets/messages")
 socketMessages(io)
 app.use(express.json());
 app.use(cors());
-
+app.use('/img',express.static('images'));
 
 app.use("/api/user", userApi)
 app.use("/api/chat", chatApi)

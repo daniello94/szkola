@@ -19,4 +19,12 @@
         opacity: 0.9;
         font-family: Georgia, "Times New Roman", Times, serif;
     }
-};
+}
+.photoContent {
+    margin-bottom: 5px;
+    img {
+        border: 3px solid #008000;
+        height: 10%;
+        border-radius: 50%;
+    }
+}

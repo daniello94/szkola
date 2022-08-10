@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
-const Subject = require("../models/Subject")
+const Subject = require("../models/Subject");
+
 function userAdd(data, cb) {
     let newUser = new User(data);
 

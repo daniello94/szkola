@@ -17,7 +17,7 @@ export default function UserData(_id) {
         nameFather: "",
         email: "",
         role: "",
-        photo:"",
+        photo: "",
         address: {
             city: "",
             street: "",
@@ -29,6 +29,7 @@ export default function UserData(_id) {
         axios.get('http://127.0.0.1:8080/api/user/' + id)
             .then((res) => {
                 setStatus(res.data)
+                console.log(res.data);
             })
     };
 
@@ -36,19 +37,22 @@ export default function UserData(_id) {
         oneUser(id)
     }, [id])
 
+    const photos = status.photo;
 
-const photos = status.photo;
-console.log(photos);
     return (
         <Container>
-            <div>
-                
-             {/* <img src={require('./../../../back-end/images/'+ photos) } alt="sjsn"/> */}
+            <div className={style.photoContent}>
+                <img src={'http://localhost:8080/img/' + photos} alt="foto profil" />
             </div>
+
+
             <table className={style.tableUserData}>
                 <thead>
                     <tr>
-                        <th colSpan="2">{status.name} {status.lastName}</th>
+
+                        <th colSpan="2">
+                            {status.name} {status.lastName}
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
