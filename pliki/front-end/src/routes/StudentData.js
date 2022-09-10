@@ -5,7 +5,7 @@ import style from "../style/StudentData.module.scss";
 import Container from "../components/Container";
 import Button from "../components/Button";
 
-export default function StudentData() {
+export default function StudentData(props) {
     const [status, setStatus] = useState({
         name: "",
         lastName: "",
@@ -69,10 +69,9 @@ export default function StudentData() {
         oneStudent(id)
     }, [id]);
     const photos = status.photo;
+
     if (update === status.id) {
-
         return (
-
             <Container>
                 <table key={status._id} className={style.tableStudent}>
                     <thead>
@@ -146,7 +145,10 @@ export default function StudentData() {
                 <thead>
                     <tr>
                         <th colSpan="4">
-                            <img src={'http://localhost:8080/img/' + photos} alt="foto profil" /><br />
+                            {props.dataUser.user.photo && status.photo && (
+                               <img src={'http://localhost:8080/img/' + photos} alt="foto profil" />
+                            )}
+                           <br />  
                             Uczeń {status.name} {status.lastName}
                         </th>
                     </tr>

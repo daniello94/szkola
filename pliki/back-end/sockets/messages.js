@@ -23,7 +23,7 @@ module.exports = function (io) {
         classNr: msg.classNr
       });
 
-      console.log(message);
+      
 
       // Save the message to the database.
       message.save((err) => {

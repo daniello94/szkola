@@ -53,12 +53,16 @@ export default function Chat(props) {
                 })}
             </div>
             <div className={style.contentSendMessage}>
-                <span className={style.webUser}>{props.dataUser.user.name} {props.dataUser.user.classNr}</span><br />
+                <span className={style.webUser}>
+                    {props.dataUser.user.name} {props.dataUser.user.classNr}
+                </span><br />
                 <form className={style.fromChat} onSubmit={handleSubmit}>
                     <textarea placeholder="Napisz swoją wiadomość"
                         onChange={(e) => setFormData(e.target.value)}
                         value={formData} />
-                    <button className={style.buttonSend}>wyślij</button>
+                    <button className={style.buttonSend}>
+                        wyślij
+                    </button>
                 </form>
             </div>
         </Container>

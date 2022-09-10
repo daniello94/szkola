@@ -41,6 +41,7 @@ export default function MyGrades(_id) {
                                     gradeSum += parseFloat(grade.rating)
 
                                 });
+                                
                                 return (
                                     <>
                                         <tr>

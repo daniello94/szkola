@@ -136,7 +136,7 @@ export default function App() {
         <Route path="userData/:id" element={<UserData />} />
         <Route path="/myGrades/:id" element={<MyGrades />} />
         <Route path="/studentAdd" element={<StudentAdd />} />
-        <Route path="/studentData/:id" element={<StudentData />} />
+        <Route path="/studentData/:id" element={<StudentData dataUser={userData} />} />
         <Route path="/addGrades/:id" element={<AddGrades />} />
         <Route path="/blog" element={<Blog dataUser={userData} />} />
         <Route path="/chat" element={<Chat dataUser={userData} />} />

@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+
 import style from "../style/AddGrades.module.scss";
 import Button from "../components/Button";
 import Container from "../components/Container";
@@ -26,7 +27,8 @@ const validate = form => {
         return "Podaj uasadnienie oceny"
     };
 
-}
+};
+
 export default function AddGrades() {
     let { id } = useParams()
     const [error, setError] = useState("")
@@ -63,7 +65,7 @@ export default function AddGrades() {
             })
         }
 
-    }
+    };
 
     let stateStudent = (e) => {
         setStatus({
@@ -71,7 +73,8 @@ export default function AddGrades() {
             [e.target.name]: e.target.value
         })
 
-    }
+    };
+
     const { nameSubject, rating, titleTask, textarea, genus
     } = status
     return (
@@ -129,4 +132,4 @@ export default function AddGrades() {
             </from>
         </Container>
     )
-}
+};

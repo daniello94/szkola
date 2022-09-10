@@ -34,7 +34,6 @@ function chatGet(id, cb) {
 };
 
 function responseAdd(data, cb) {
-    console.log( { response: data[1] });
     Blog.updateOne(
         { _id: data[0] },
         { $push: { responses: data[1] } },

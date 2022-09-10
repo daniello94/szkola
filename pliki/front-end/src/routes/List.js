@@ -39,6 +39,7 @@ export default function List(props) {
                 </tr>
             )
         }
+        
         return (
             <tr key={student._id}>
                 <td className="box">{student.name}</td>

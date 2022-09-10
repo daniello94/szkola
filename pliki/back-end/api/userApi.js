@@ -130,7 +130,7 @@ router.put('/update/:id', function (req, res) {
 });
 
 
-router.delete('/delete/:id', function (req, res) {
+router.delete('/delete/:id',authTeacher, function (req, res) {
     user.delete(req.params.id, function (err, data) {
         if (err) {
             res.status(404);
@@ -143,7 +143,7 @@ router.delete('/delete/:id', function (req, res) {
     })
 });
 
-router.put('/addGrade/:id', function (req, res) {
+router.put('/addGrade/:id',authTeacher, function (req, res) {
     user.grades([req.params.id, req.body], function (err, grades) {
         if (err) res.send(err)
         res.json(grades)

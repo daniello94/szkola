@@ -101,7 +101,6 @@ export default function StudentAdd() {
         photo: "",
     });
 
-    console.log(form);
     const addStudent = (e) => {
         e.preventDefault();
         const errorss = validate(form)

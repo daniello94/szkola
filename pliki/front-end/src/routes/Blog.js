@@ -106,7 +106,6 @@ export default function Chat(props) {
                     name: props.dataUser.user.name,
                     classNr: props.dataUser.user.classNr,
                 })
-                console.log(res.data);
                 setError(<span className={style.addPost}>dodałeś/aś wpis</span>)
                 listChat()
             })
@@ -175,7 +174,8 @@ export default function Chat(props) {
                 </form>
             </Container>
         )
-    }
+    };
+    
     return (
         <Container>
 
